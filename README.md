@@ -43,7 +43,7 @@ The copies keep the originals until the last step, so a failure before then leav
 ## Details
 
 - **Config dir.** Reads `CLAUDE_CONFIG_DIR`, falling back to `~/.claude` - the same resolution Claude Code uses, so it targets whatever dir your Claude actually uses.
-- **Path handling.** Resolves `<src>` to an absolute, symlink-resolved path (matching what Claude stores), and encodes paths with Claude's own rule: every non-alphanumeric character becomes `-`.
+- **Path handling.** Relative paths are accepted and resolved against your current directory. Resolves `<src>` to an absolute, symlink-resolved path (matching what Claude stores), and encodes paths with Claude's own rule: every non-alphanumeric character becomes `-`.
 - **Faithful copy.** Byte-identical contents, preserved mode bits and mtimes, symlinks copied as symlinks. Nothing is filtered.
 - **history.jsonl.** Only the top-level `project` field is changed, and only on lines that exactly equal the old path. Every other line is written back byte-for-byte. The file is rewritten to a temp file and atomically renamed.
 - **Lock guard.** Refuses to run while any process named `claude` is running.
